@@ -1,0 +1,3 @@
+# ~/.config/kitty/startup.kitty
+launch sh -c 'fastfetch -c ~/.config/fastfetch/config-compact.jsonc; exec zsh'
+

@@ -2,7 +2,11 @@
 *
 # Except these ones
 !.gitignore
-!nvim/*
-!btop/*
-!kitty/*
-!fastfetch/*
+!nvim/
+!nvim/**
+!btop/
+!btop/**
+!kitty/
+!kitty/**
+!fastfetch/
+!fastfetch/**
