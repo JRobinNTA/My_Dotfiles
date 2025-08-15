@@ -2,11 +2,6 @@
 *
 # Except these ones
 !.gitignore
-!nvim/
-!nvim/**
-!btop/
-!btop/**
-!kitty/
-!kitty/**
-!fastfetch/
-!fastfetch/**
+!.p10k.zsh
+!.zshrc
+!Devel/bash_scripts/setup.sh
