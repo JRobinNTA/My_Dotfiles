@@ -10,3 +10,11 @@
 !kitty/**
 !fastfetch/
 !fastfetch/**
+!sway/
+!sway/**
+!waybar/
+!waybar/**
+!rofi/
+!rofi/**
+!backgrounds/
+!backgrounds/**
