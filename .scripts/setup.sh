@@ -43,7 +43,7 @@ setup_dotfiles() {
 
   echo "Moving configs to $CONFIG_DIR..."
   mkdir -p "$CONFIG_DIR"
-  mv -r "$DOTFILES_DIR/.config/"* "$CONFIG_DIR/"
+  cp -r "$DOTFILES_DIR/.config/"* "$CONFIG_DIR/"
 }
 
 # -----------------------------
