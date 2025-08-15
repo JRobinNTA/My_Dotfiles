@@ -10,7 +10,7 @@ DOTFILES_DIR="$HOME/Downloads/dotfiles"
 CONFIG_DIR="$HOME/.config"
 
 # Packages common to most setups
-COMMON_PACKAGES="git curl wget zsh unzip fontconfig neovim fastfetch btop kitty cava"
+COMMON_PACKAGES="git curl wget zsh unzip fontconfig neovim fastfetch btop kitty cava wl-clipboard cliphist"
 
 # -----------------------------
 # Detect distro & install deps
@@ -99,12 +99,17 @@ setup_p10k() {
   cp "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 }
 
+install_brew() {
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
 # -----------------------------
 # Run everything
 # -----------------------------
 install_packages
 setup_dotfiles
 install_font
+install_brew
 setup_zsh
 setup_p10k
 
