@@ -1,0 +1,12 @@
+# ignore all files
+*
+# Except these ones
+!.gitignore
+!nvim/
+!nvim/**
+!btop/
+!btop/**
+!kitty/
+!kitty/**
+!fastfetch/
+!fastfetch/**
