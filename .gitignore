@@ -6,4 +6,5 @@
 !.gitignore
 !.p10k.zsh
 !.zshrc
-!Devel/bash_scripts/setup.sh
+!.scripts/
+!.scripts/**
