@@ -99,10 +99,15 @@ setup_p10k() {
   cp "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 }
 
+install_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
 # -----------------------------
 # Run everything
 # -----------------------------
 install_packages
+install_brew
 setup_dotfiles
 install_font
 setup_zsh
