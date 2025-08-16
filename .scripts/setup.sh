@@ -20,6 +20,7 @@ install_packages() {
     sudo apt-get update
     sudo apt-get install -y $COMMON_PACKAGES
   elif command -v dnf &>/dev/null; then
+    sudo dnf copr enable alternateved/cliphist
     sudo dnf install -y $COMMON_PACKAGES
   elif command -v pacman &>/dev/null; then
     sudo pacman -Sy --noconfirm $COMMON_PACKAGES
