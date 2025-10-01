@@ -37,6 +37,10 @@ vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
 -- Save undo history
 vim.opt.undofile = true
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -82,5 +86,36 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.filetype.add {
+  extension = {
+    v = 'verilog',
+  },
+}
+
+-- File: ~/.config/nvim/lua/autocmands.lua
+
+vim.api.nvim_create_autocmd('BufNewFile', {
+  group = vim.api.nvim_create_augroup('RemoteFile', { clear = true }),
+  callback = function()
+    local f = vim.fn.expand '%:p'
+    -- Loop through a list of remote protocols
+    for _, v in ipairs { 'sftp', 'scp', 'ssh', 'dav', 'fetch', 'ftp', 'http', 'rcp', 'rsync' } do
+      local p = v .. '://'
+      if string.sub(f, 1, #p) == p then
+        -- If it's a remote file, force-load netrw for this buffer
+        vim.cmd [[
+          unlet g:loaded_netrw
+          unlet g:loaded_netrwPlugin
+          runtime! plugin/netrwPlugin.vim
+          silent Explore %
+        ]]
+        -- The job is done, so we can remove the autocommand for this session
+        vim.api.nvim_clear_autocmds { group = 'RemoteFile' }
+        break
+      end
+    end
   end,
 })
