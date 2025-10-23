@@ -19,6 +19,17 @@ export VISUAL=nvim
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# zsh essentials
+HISTSIZE=100000                  # Save 100000 lines of history
+SAVEHIST=100000
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -73,6 +84,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+#
+# Source Brew and its autocompletion before compinit is loaded by OMZ
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -81,11 +98,17 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    zsh-syntax-highlighting
     zsh-autosuggestions
+    zsh-history-substring-search
+    fzf-tab
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Bind Up and Down arrows to history-substring-search
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # User configuration
 
@@ -115,12 +138,27 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+# -----------------------------------------------------------------
+# EZA (Modern 'ls') Aliases
+# -----------------------------------------------------------------
+#
+# Basic 'ls' replacement with icons and Git status
+alias ls='eza --icons --git'
+
+# Long view ('ls -l')
+alias l='eza -l --icons --git'
+
+# Long view + All files ('ls -la')
+alias la='eza -la --icons --git'
+
+# You might also have 'll' aliased, so let's overwrite it
+alias ll='eza -la --icons --git'
+
+# Tree view (a new, powerful command)
+# This shows a tree, 3 levels deep.
+alias lt='eza --tree --level=3 --icons --git'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-if type brew &>/dev/null; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit
-  compinit
-fi
+
